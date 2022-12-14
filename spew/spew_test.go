@@ -22,8 +22,8 @@ import (
 	"io/ioutil"
 	"os"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
+	
+	"github.com/gozelle/go-spew/spew"
 )
 
 // spewFunc is used to identify which public function of the spew package or
@@ -113,13 +113,13 @@ func redirStdout(f func()) ([]byte, error) {
 	}
 	fileName := tempFile.Name()
 	defer os.Remove(fileName) // Ignore error
-
+	
 	origStdout := os.Stdout
 	os.Stdout = tempFile
 	f()
 	os.Stdout = origStdout
 	tempFile.Close()
-
+	
 	return ioutil.ReadFile(fileName)
 }
 
@@ -132,17 +132,17 @@ func initSpewTests() {
 	scsContinue := &spew.ConfigState{Indent: " ", ContinueOnMethod: true}
 	scsNoPtrAddr := &spew.ConfigState{DisablePointerAddresses: true}
 	scsNoCap := &spew.ConfigState{DisableCapacities: true}
-
+	
 	// Variables for tests on types which implement Stringer interface with and
 	// without a pointer receiver.
 	ts := stringer("test")
 	tps := pstringer("test")
-
+	
 	type ptrTester struct {
 		s *struct{}
 	}
 	tptr := &ptrTester{s: &struct{}{}}
-
+	
 	// depthTester is used to test max depth handling for structs, array, slices
 	// and maps.
 	type depthTester struct {
@@ -153,10 +153,10 @@ func initSpewTests() {
 	}
 	dt := depthTester{indirCir1{nil}, [1]string{"arr"}, []string{"slice"},
 		map[string]int{"one": 1}}
-
+	
 	// Variable for tests on types which implement error interface.
 	te := customError(10)
-
+	
 	spewTests = []spewTest{
 		{scsDefault, fCSFdump, "", int8(127), "(int8) 127\n"},
 		{scsDefault, fCSFprint, "", int16(32767), "32767"},
@@ -209,23 +209,23 @@ func initSpewTests() {
 // TestSpew executes all of the tests described by spewTests.
 func TestSpew(t *testing.T) {
 	initSpewTests()
-
+	
 	t.Logf("Running %d tests", len(spewTests))
 	for i, test := range spewTests {
 		buf := new(bytes.Buffer)
 		switch test.f {
 		case fCSFdump:
 			test.cs.Fdump(buf, test.in)
-
+		
 		case fCSFprint:
 			test.cs.Fprint(buf, test.in)
-
+		
 		case fCSFprintf:
 			test.cs.Fprintf(buf, test.format, test.in)
-
+		
 		case fCSFprintln:
 			test.cs.Fprintln(buf, test.in)
-
+		
 		case fCSPrint:
 			b, err := redirStdout(func() { test.cs.Print(test.in) })
 			if err != nil {
@@ -233,7 +233,7 @@ func TestSpew(t *testing.T) {
 				continue
 			}
 			buf.Write(b)
-
+		
 		case fCSPrintln:
 			b, err := redirStdout(func() { test.cs.Println(test.in) })
 			if err != nil {
@@ -241,40 +241,40 @@ func TestSpew(t *testing.T) {
 				continue
 			}
 			buf.Write(b)
-
+		
 		case fCSSdump:
 			str := test.cs.Sdump(test.in)
 			buf.WriteString(str)
-
+		
 		case fCSSprint:
 			str := test.cs.Sprint(test.in)
 			buf.WriteString(str)
-
+		
 		case fCSSprintf:
 			str := test.cs.Sprintf(test.format, test.in)
 			buf.WriteString(str)
-
+		
 		case fCSSprintln:
 			str := test.cs.Sprintln(test.in)
 			buf.WriteString(str)
-
+		
 		case fCSErrorf:
 			err := test.cs.Errorf(test.format, test.in)
 			buf.WriteString(err.Error())
-
+		
 		case fCSNewFormatter:
 			fmt.Fprintf(buf, test.format, test.cs.NewFormatter(test.in))
-
+		
 		case fErrorf:
 			err := spew.Errorf(test.format, test.in)
 			buf.WriteString(err.Error())
-
+		
 		case fFprint:
 			spew.Fprint(buf, test.in)
-
+		
 		case fFprintln:
 			spew.Fprintln(buf, test.in)
-
+		
 		case fPrint:
 			b, err := redirStdout(func() { spew.Print(test.in) })
 			if err != nil {
@@ -282,7 +282,7 @@ func TestSpew(t *testing.T) {
 				continue
 			}
 			buf.Write(b)
-
+		
 		case fPrintln:
 			b, err := redirStdout(func() { spew.Println(test.in) })
 			if err != nil {
@@ -290,23 +290,23 @@ func TestSpew(t *testing.T) {
 				continue
 			}
 			buf.Write(b)
-
+		
 		case fSdump:
 			str := spew.Sdump(test.in)
 			buf.WriteString(str)
-
+		
 		case fSprint:
 			str := spew.Sprint(test.in)
 			buf.WriteString(str)
-
+		
 		case fSprintf:
 			str := spew.Sprintf(test.format, test.in)
 			buf.WriteString(str)
-
+		
 		case fSprintln:
 			str := spew.Sprintln(test.in)
 			buf.WriteString(str)
-
+		
 		default:
 			t.Errorf("%v #%d unrecognized function", test.f, i)
 			continue
