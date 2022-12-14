@@ -18,8 +18,8 @@ package spew_test
 
 import (
 	"fmt"
-
-	"github.com/davecgh/go-spew/spew"
+	
+	"github.com/gozelle/go-spew/spew"
 )
 
 type Flag int
@@ -55,34 +55,34 @@ func ExampleDump() {
 	// The following package level declarations are assumed for this example:
 	/*
 		type Flag int
-
+	
 		const (
 			flagOne Flag = iota
 			flagTwo
 		)
-
+	
 		var flagStrings = map[Flag]string{
 			flagOne: "flagOne",
 			flagTwo: "flagTwo",
 		}
-
+	
 		func (f Flag) String() string {
 			if s, ok := flagStrings[f]; ok {
 				return s
 			}
 			return fmt.Sprintf("Unknown flag (%d)", int(f))
 		}
-
+	
 		type Bar struct {
 			data uintptr
 		}
-
+	
 		type Foo struct {
 			unexportedField Bar
 			ExportedField   map[interface{}]interface{}
 		}
 	*/
-
+	
 	// Setup some sample data structures for the example.
 	bar := Bar{uintptr(0)}
 	s1 := Foo{bar, map[interface{}]interface{}{"one": true}}
@@ -94,10 +94,10 @@ func ExampleDump() {
 		0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f, 0x30,
 		0x31, 0x32,
 	}
-
+	
 	// Dump!
 	spew.Dump(s1, f, b)
-
+	
 	// Output:
 	// (spew_test.Foo) {
 	//  unexportedField: (spew_test.Bar) {
@@ -123,7 +123,7 @@ func ExamplePrintf() {
 	ui8 := uint8(5)
 	pui8 := &ui8
 	ppui8 := &pui8
-
+	
 	// Create a circular data type.
 	type circular struct {
 		ui8 uint8
@@ -131,11 +131,11 @@ func ExamplePrintf() {
 	}
 	c := circular{ui8: 1}
 	c.c = &c
-
+	
 	// Print!
 	spew.Printf("ppui8: %v\n", ppui8)
 	spew.Printf("circular: %v\n", c)
-
+	
 	// Output:
 	// ppui8: <**>5
 	// circular: {1 <*>{1 <*><shown>}}
@@ -146,12 +146,12 @@ func ExampleConfigState() {
 	// Modify the indent level of the ConfigState only.  The global
 	// configuration is not modified.
 	scs := spew.ConfigState{Indent: "\t"}
-
+	
 	// Output using the ConfigState instance.
 	v := map[string]int{"one": 1}
 	scs.Printf("v: %v\n", v)
 	scs.Dump(v)
-
+	
 	// Output:
 	// v: map[one:1]
 	// (map[string]int) (len=1) {
@@ -164,19 +164,19 @@ func ExampleConfigState() {
 func ExampleConfigState_Dump() {
 	// See the top-level Dump example for details on the types used in this
 	// example.
-
+	
 	// Create two ConfigState instances with different indentation.
 	scs := spew.ConfigState{Indent: "\t"}
 	scs2 := spew.ConfigState{Indent: " "}
-
+	
 	// Setup some sample data structures for the example.
 	bar := Bar{uintptr(0)}
 	s1 := Foo{bar, map[interface{}]interface{}{"one": true}}
-
+	
 	// Dump using the ConfigState instances.
 	scs.Dump(s1)
 	scs2.Dump(s1)
-
+	
 	// Output:
 	// (spew_test.Foo) {
 	// 	unexportedField: (spew_test.Bar) {
@@ -202,24 +202,24 @@ func ExampleConfigState_Dump() {
 func ExampleConfigState_Printf() {
 	// See the top-level Dump example for details on the types used in this
 	// example.
-
+	
 	// Create two ConfigState instances and modify the method handling of the
 	// first ConfigState only.
 	scs := spew.NewDefaultConfig()
 	scs2 := spew.NewDefaultConfig()
 	scs.DisableMethods = true
-
+	
 	// Alternatively
 	// scs := spew.ConfigState{Indent: " ", DisableMethods: true}
 	// scs2 := spew.ConfigState{Indent: " "}
-
+	
 	// This is of type Flag which implements a Stringer and has raw value 1.
 	f := flagTwo
-
+	
 	// Dump using the ConfigState instances.
 	scs.Printf("f: %v\n", f)
 	scs2.Printf("f: %v\n", f)
-
+	
 	// Output:
 	// f: 1
 	// f: flagTwo

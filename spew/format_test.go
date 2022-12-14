@@ -71,8 +71,8 @@ import (
 	"fmt"
 	"testing"
 	"unsafe"
-
-	"github.com/davecgh/go-spew/spew"
+	
+	"github.com/gozelle/go-spew/spew"
 )
 
 // formatterTest is used to describe a test to be performed against NewFormatter.
@@ -117,7 +117,7 @@ func addIntFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Max int16.
 	v2 := int16(32767)
 	nv2 := (*int16)(nil)
@@ -142,7 +142,7 @@ func addIntFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Max int32.
 	v3 := int32(2147483647)
 	nv3 := (*int32)(nil)
@@ -167,7 +167,7 @@ func addIntFormatterTests() {
 	addFormatterTest("%#+v", pv3, "(*"+v3t+")("+v3Addr+")"+v3s)
 	addFormatterTest("%#+v", &pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")"+v3s)
 	addFormatterTest("%#v", nv3, "(*"+v3t+")"+"<nil>")
-
+	
 	// Max int64.
 	v4 := int64(9223372036854775807)
 	nv4 := (*int64)(nil)
@@ -192,7 +192,7 @@ func addIntFormatterTests() {
 	addFormatterTest("%#+v", pv4, "(*"+v4t+")("+v4Addr+")"+v4s)
 	addFormatterTest("%#+v", &pv4, "(**"+v4t+")("+pv4Addr+"->"+v4Addr+")"+v4s)
 	addFormatterTest("%#+v", nv4, "(*"+v4t+")"+"<nil>")
-
+	
 	// Max int.
 	v5 := int(2147483647)
 	nv5 := (*int)(nil)
@@ -244,7 +244,7 @@ func addUintFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Max uint16.
 	v2 := uint16(65535)
 	nv2 := (*uint16)(nil)
@@ -269,7 +269,7 @@ func addUintFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Max uint32.
 	v3 := uint32(4294967295)
 	nv3 := (*uint32)(nil)
@@ -294,7 +294,7 @@ func addUintFormatterTests() {
 	addFormatterTest("%#+v", pv3, "(*"+v3t+")("+v3Addr+")"+v3s)
 	addFormatterTest("%#+v", &pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")"+v3s)
 	addFormatterTest("%#v", nv3, "(*"+v3t+")"+"<nil>")
-
+	
 	// Max uint64.
 	v4 := uint64(18446744073709551615)
 	nv4 := (*uint64)(nil)
@@ -319,7 +319,7 @@ func addUintFormatterTests() {
 	addFormatterTest("%#+v", pv4, "(*"+v4t+")("+v4Addr+")"+v4s)
 	addFormatterTest("%#+v", &pv4, "(**"+v4t+")("+pv4Addr+"->"+v4Addr+")"+v4s)
 	addFormatterTest("%#+v", nv4, "(*"+v4t+")"+"<nil>")
-
+	
 	// Max uint.
 	v5 := uint(4294967295)
 	nv5 := (*uint)(nil)
@@ -371,7 +371,7 @@ func addBoolFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Boolean false.
 	v2 := bool(false)
 	pv2 := &v2
@@ -418,7 +418,7 @@ func addFloatFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Standard float64.
 	v2 := float64(3.1415926)
 	nv2 := (*float64)(nil)
@@ -470,7 +470,7 @@ func addComplexFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Standard complex128.
 	v2 := complex(float64(-6), 2)
 	nv2 := (*complex128)(nil)
@@ -522,7 +522,7 @@ func addArrayFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Array containing type with custom formatter on pointer receiver only.
 	v2 := [3]pstringer{"1", "2", "3"}
 	nv2 := (*[3]pstringer)(nil)
@@ -551,7 +551,7 @@ func addArrayFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2sp)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2sp)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Array containing interfaces.
 	v3 := [3]interface{}{"one", int(2), uint(3)}
 	nv3 := (*[3]interface{})(nil)
@@ -607,7 +607,7 @@ func addSliceFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Slice containing type with custom formatter on pointer receiver only.
 	v2 := []pstringer{"1", "2", "3"}
 	nv2 := (*[]pstringer)(nil)
@@ -632,7 +632,7 @@ func addSliceFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Slice containing interfaces.
 	v3 := []interface{}{"one", int(2), uint(3), nil}
 	nv3 := (*[]interface{})(nil)
@@ -663,7 +663,7 @@ func addSliceFormatterTests() {
 	addFormatterTest("%#+v", pv3, "(*"+v3t+")("+v3Addr+")"+v3s2)
 	addFormatterTest("%#+v", &pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")"+v3s2)
 	addFormatterTest("%#+v", nv3, "(*"+v3t+")"+"<nil>")
-
+	
 	// Nil slice.
 	var v4 []int
 	nv4 := (*[]int)(nil)
@@ -742,7 +742,7 @@ func addInterfaceFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Sub-interface.
 	v2 := interface{}(uint16(65535))
 	pv2 := &v2
@@ -798,7 +798,7 @@ func addMapFormatterTests() {
 		"(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs2)
 	addFormatterTest("%#+v", nilMap, "("+vt+")"+"<nil>")
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Map with custom formatter type on pointer receiver only keys and vals.
 	v2 := map[pstringer]pstringer{"one": "1"}
 	nv2 := (*map[pstringer]pstringer)(nil)
@@ -826,7 +826,7 @@ func addMapFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Map with interface keys and values.
 	v3 := map[interface{}]interface{}{"one": 1}
 	nv3 := (*map[interface{}]interface{})(nil)
@@ -854,7 +854,7 @@ func addMapFormatterTests() {
 	addFormatterTest("%#+v", pv3, "(*"+v3t+")("+v3Addr+")"+v3s2)
 	addFormatterTest("%#+v", &pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")"+v3s2)
 	addFormatterTest("%#+v", nv3, "(*"+v3t+")"+"<nil>")
-
+	
 	// Map with nil interface value
 	v4 := map[string]interface{}{"nil": nil}
 	nv4 := (*map[string]interface{})(nil)
@@ -916,7 +916,7 @@ func addStructFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs3)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs3)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Struct that contains another struct.
 	type s2 struct {
 		s1 s1
@@ -952,7 +952,7 @@ func addStructFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s3)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s3)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Struct that contains custom type with Stringer pointer interface via both
 	// exported and unexported fields.
 	type s3 struct {
@@ -996,7 +996,7 @@ func addStructFormatterTests() {
 	addFormatterTest("%#+v", pv3, "(*"+v3t+")("+v3Addr+")"+v3s3p)
 	addFormatterTest("%#+v", &pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")"+v3s3p)
 	addFormatterTest("%#+v", nv3, "(*"+v3t+")"+"<nil>")
-
+	
 	// Struct that contains embedded struct and field to same struct.
 	e := embed{"embedstr"}
 	v4 := embedwrap{embed: &e, e: &e}
@@ -1058,7 +1058,7 @@ func addUintptrFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Address of real variable.
 	i := 1
 	v2 := uintptr(unsafe.Pointer(&i))
@@ -1106,7 +1106,7 @@ func addUnsafePointerFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Address of real variable.
 	i := 1
 	v2 := unsafe.Pointer(&i)
@@ -1154,7 +1154,7 @@ func addChanFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Real channel.
 	v2 := make(chan int)
 	pv2 := &v2
@@ -1201,7 +1201,7 @@ func addFuncFormatterTests() {
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs)
 	addFormatterTest("%#+v", nv, "(*"+vt+")"+"<nil>")
-
+	
 	// Function with param and no returns.
 	v2 := TestFormatter
 	nv2 := (*func(*testing.T))(nil)
@@ -1226,7 +1226,7 @@ func addFuncFormatterTests() {
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s)
 	addFormatterTest("%#+v", nv2, "(*"+v2t+")"+"<nil>")
-
+	
 	// Function with multiple params and multiple returns.
 	var v3 = func(i int, s string) (b bool, err error) {
 		return true, nil
@@ -1287,7 +1287,7 @@ func addCircularFormatterTests() {
 	addFormatterTest("%#+v", v, "("+vt+")"+vs7)
 	addFormatterTest("%#+v", pv, "(*"+vt+")("+vAddr+")"+vs8)
 	addFormatterTest("%#+v", &pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")"+vs8)
-
+	
 	// Structs that are circular through cross referencing.
 	v2 := xref1{nil}
 	ts2 := xref2{&v2}
@@ -1323,7 +1323,7 @@ func addCircularFormatterTests() {
 	addFormatterTest("%#+v", v2, "("+v2t+")"+v2s7)
 	addFormatterTest("%#+v", pv2, "(*"+v2t+")("+v2Addr+")"+v2s8)
 	addFormatterTest("%#+v", &pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")"+v2s8)
-
+	
 	// Structs that are indirectly circular.
 	v3 := indirCir1{nil}
 	tic2 := indirCir2{nil}
@@ -1431,7 +1431,7 @@ func addPassthroughFormatterTests() {
 	addFormatterTest("%x", v, vs)
 	addFormatterTest("%x", pv, vAddr)
 	addFormatterTest("%x", &pv, pvAddr)
-
+	
 	// %#x passthrough with uint.
 	v2 := int(2147483647)
 	pv2 := &v2
@@ -1441,22 +1441,22 @@ func addPassthroughFormatterTests() {
 	addFormatterTest("%#x", v2, v2s)
 	addFormatterTest("%#x", pv2, v2Addr)
 	addFormatterTest("%#x", &pv2, pv2Addr)
-
+	
 	// %f passthrough with precision.
 	addFormatterTest("%.2f", 3.1415, "3.14")
 	addFormatterTest("%.3f", 3.1415, "3.142")
 	addFormatterTest("%.4f", 3.1415, "3.1415")
-
+	
 	// %f passthrough with width and precision.
 	addFormatterTest("%5.2f", 3.1415, " 3.14")
 	addFormatterTest("%6.3f", 3.1415, " 3.142")
 	addFormatterTest("%7.4f", 3.1415, " 3.1415")
-
+	
 	// %d passthrough with width.
 	addFormatterTest("%3d", 127, "127")
 	addFormatterTest("%4d", 127, " 127")
 	addFormatterTest("%5d", 127, "  127")
-
+	
 	// %q passthrough with string.
 	addFormatterTest("%q", "test", "\"test\"")
 }
@@ -1483,7 +1483,7 @@ func TestFormatter(t *testing.T) {
 	addPanicFormatterTests()
 	addErrorFormatterTests()
 	addPassthroughFormatterTests()
-
+	
 	t.Logf("Running %d tests", len(formatterTests))
 	for i, test := range formatterTests {
 		buf := new(bytes.Buffer)
@@ -1520,13 +1520,13 @@ func TestPrintSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch 1:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sprint(map[stringer]int{"1": 1, "3": 3, "2": 2})
 	expected = "map[stringer 1:1 stringer 2:2 stringer 3:3]"
 	if s != expected {
 		t.Errorf("Sorted keys mismatch 2:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sprint(map[pstringer]int{pstringer("1"): 1, pstringer("3"): 3, pstringer("2"): 2})
 	expected = "map[stringer 1:1 stringer 2:2 stringer 3:3]"
 	if spew.UnsafeDisabled {
@@ -1535,13 +1535,13 @@ func TestPrintSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch 3:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sprint(map[testStruct]int{{1}: 1, {3}: 3, {2}: 2})
 	expected = "map[ts.1:1 ts.2:2 ts.3:3]"
 	if s != expected {
 		t.Errorf("Sorted keys mismatch 4:\n  %v %v", s, expected)
 	}
-
+	
 	if !spew.UnsafeDisabled {
 		s = cfg.Sprint(map[testStructP]int{{1}: 1, {3}: 3, {2}: 2})
 		expected = "map[ts.1:1 ts.2:2 ts.3:3]"
@@ -1549,7 +1549,7 @@ func TestPrintSortedKeys(t *testing.T) {
 			t.Errorf("Sorted keys mismatch 5:\n  %v %v", s, expected)
 		}
 	}
-
+	
 	s = cfg.Sprint(map[customError]int{customError(1): 1, customError(3): 3, customError(2): 2})
 	expected = "map[error: 1:1 error: 2:2 error: 3:3]"
 	if s != expected {

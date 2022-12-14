@@ -66,8 +66,8 @@ import (
 	"fmt"
 	"testing"
 	"unsafe"
-
-	"github.com/davecgh/go-spew/spew"
+	
+	"github.com/gozelle/go-spew/spew"
 )
 
 // dumpTest is used to describe a test to be performed against the Dump method.
@@ -99,7 +99,7 @@ func addIntDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Max int16.
 	v2 := int16(32767)
 	nv2 := (*int16)(nil)
@@ -112,7 +112,7 @@ func addIntDumpTests() {
 	addDumpTest(pv2, "(*"+v2t+")("+v2Addr+")("+v2s+")\n")
 	addDumpTest(&pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s+")\n")
 	addDumpTest(nv2, "(*"+v2t+")(<nil>)\n")
-
+	
 	// Max int32.
 	v3 := int32(2147483647)
 	nv3 := (*int32)(nil)
@@ -125,7 +125,7 @@ func addIntDumpTests() {
 	addDumpTest(pv3, "(*"+v3t+")("+v3Addr+")("+v3s+")\n")
 	addDumpTest(&pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")("+v3s+")\n")
 	addDumpTest(nv3, "(*"+v3t+")(<nil>)\n")
-
+	
 	// Max int64.
 	v4 := int64(9223372036854775807)
 	nv4 := (*int64)(nil)
@@ -138,7 +138,7 @@ func addIntDumpTests() {
 	addDumpTest(pv4, "(*"+v4t+")("+v4Addr+")("+v4s+")\n")
 	addDumpTest(&pv4, "(**"+v4t+")("+pv4Addr+"->"+v4Addr+")("+v4s+")\n")
 	addDumpTest(nv4, "(*"+v4t+")(<nil>)\n")
-
+	
 	// Max int.
 	v5 := int(2147483647)
 	nv5 := (*int)(nil)
@@ -166,7 +166,7 @@ func addUintDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Max uint16.
 	v2 := uint16(65535)
 	nv2 := (*uint16)(nil)
@@ -179,7 +179,7 @@ func addUintDumpTests() {
 	addDumpTest(pv2, "(*"+v2t+")("+v2Addr+")("+v2s+")\n")
 	addDumpTest(&pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s+")\n")
 	addDumpTest(nv2, "(*"+v2t+")(<nil>)\n")
-
+	
 	// Max uint32.
 	v3 := uint32(4294967295)
 	nv3 := (*uint32)(nil)
@@ -192,7 +192,7 @@ func addUintDumpTests() {
 	addDumpTest(pv3, "(*"+v3t+")("+v3Addr+")("+v3s+")\n")
 	addDumpTest(&pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")("+v3s+")\n")
 	addDumpTest(nv3, "(*"+v3t+")(<nil>)\n")
-
+	
 	// Max uint64.
 	v4 := uint64(18446744073709551615)
 	nv4 := (*uint64)(nil)
@@ -205,7 +205,7 @@ func addUintDumpTests() {
 	addDumpTest(pv4, "(*"+v4t+")("+v4Addr+")("+v4s+")\n")
 	addDumpTest(&pv4, "(**"+v4t+")("+pv4Addr+"->"+v4Addr+")("+v4s+")\n")
 	addDumpTest(nv4, "(*"+v4t+")(<nil>)\n")
-
+	
 	// Max uint.
 	v5 := uint(4294967295)
 	nv5 := (*uint)(nil)
@@ -233,7 +233,7 @@ func addBoolDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Boolean false.
 	v2 := bool(false)
 	pv2 := &v2
@@ -259,7 +259,7 @@ func addFloatDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Standard float64.
 	v2 := float64(3.1415926)
 	nv2 := (*float64)(nil)
@@ -287,7 +287,7 @@ func addComplexDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Standard complex128.
 	v2 := complex(float64(-6), 2)
 	nv2 := (*complex128)(nil)
@@ -318,7 +318,7 @@ func addArrayDumpTests() {
 	addDumpTest(pv, "(*[3]"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**[3]"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*[3]"+vt+")(<nil>)\n")
-
+	
 	// Array containing type with custom formatter on pointer receiver only.
 	v2i0 := pstringer("1")
 	v2i1 := pstringer("2")
@@ -349,7 +349,7 @@ func addArrayDumpTests() {
 	addDumpTest(pv2, "(*[3]"+v2t+")("+v2Addr+")("+v2sp+")\n")
 	addDumpTest(&pv2, "(**[3]"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2sp+")\n")
 	addDumpTest(nv2, "(*[3]"+v2t+")(<nil>)\n")
-
+	
 	// Array containing interfaces.
 	v3i0 := "one"
 	v3 := [3]interface{}{v3i0, int(2), uint(3)}
@@ -371,7 +371,7 @@ func addArrayDumpTests() {
 	addDumpTest(pv3, "(*"+v3t+")("+v3Addr+")("+v3s+")\n")
 	addDumpTest(&pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")("+v3s+")\n")
 	addDumpTest(nv3, "(*"+v3t+")(<nil>)\n")
-
+	
 	// Array containing bytes.
 	v4 := [34]byte{
 		0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
@@ -416,7 +416,7 @@ func addSliceDumpTests() {
 	addDumpTest(pv, "(*[]"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**[]"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*[]"+vt+")(<nil>)\n")
-
+	
 	// Slice containing type with custom formatter on pointer receiver only.
 	v2i0 := pstringer("1")
 	v2i1 := pstringer("2")
@@ -440,7 +440,7 @@ func addSliceDumpTests() {
 	addDumpTest(pv2, "(*[]"+v2t+")("+v2Addr+")("+v2s+")\n")
 	addDumpTest(&pv2, "(**[]"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s+")\n")
 	addDumpTest(nv2, "(*[]"+v2t+")(<nil>)\n")
-
+	
 	// Slice containing interfaces.
 	v3i0 := "one"
 	v3 := []interface{}{v3i0, int(2), uint(3), nil}
@@ -463,7 +463,7 @@ func addSliceDumpTests() {
 	addDumpTest(pv3, "(*"+v3t+")("+v3Addr+")("+v3s+")\n")
 	addDumpTest(&pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")("+v3s+")\n")
 	addDumpTest(nv3, "(*"+v3t+")(<nil>)\n")
-
+	
 	// Slice containing bytes.
 	v4 := []byte{
 		0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18,
@@ -490,7 +490,7 @@ func addSliceDumpTests() {
 	addDumpTest(pv4, "(*"+v4t+")("+v4Addr+")("+v4s+")\n")
 	addDumpTest(&pv4, "(**"+v4t+")("+pv4Addr+"->"+v4Addr+")("+v4s+")\n")
 	addDumpTest(nv4, "(*"+v4t+")(<nil>)\n")
-
+	
 	// Nil slice.
 	v5 := []int(nil)
 	nv5 := (*[]int)(nil)
@@ -534,7 +534,7 @@ func addInterfaceDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Sub-interface.
 	v2 := interface{}(uint16(65535))
 	pv2 := &v2
@@ -576,7 +576,7 @@ func addMapDumpTests() {
 		"(**"+mt+")("+pmAddr+"->"+mAddr+")("+ms2+")\n")
 	addDumpTest(nm, "(*"+mt+")(<nil>)\n")
 	addDumpTest(nilMap, "("+mt+") <nil>\n")
-
+	
 	// Map with custom formatter type on pointer receiver only keys and vals.
 	k2 := pstringer("one")
 	v2 := pstringer("1")
@@ -604,7 +604,7 @@ func addMapDumpTests() {
 	addDumpTest(&pm2, "(**"+m2t+")("+pm2Addr+"->"+m2Addr+")("+m2s+")\n")
 	addDumpTest(nm2, "(*"+m2t+")(<nil>)\n")
 	addDumpTest(nilMap2, "("+m2t+") <nil>\n")
-
+	
 	// Map with interface keys and values.
 	k3 := "one"
 	k3Len := fmt.Sprintf("%d", len(k3))
@@ -625,7 +625,7 @@ func addMapDumpTests() {
 	addDumpTest(&pm3, "(**"+m3t+")("+pm3Addr+"->"+m3Addr+")("+m3s+")\n")
 	addDumpTest(nm3, "(*"+m3t+")(<nil>)\n")
 	addDumpTest(nilMap3, "("+m3t+") <nil>\n")
-
+	
 	// Map with nil interface value.
 	k4 := "nil"
 	k4Len := fmt.Sprintf("%d", len(k4))
@@ -667,7 +667,7 @@ func addStructDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Struct that contains another struct.
 	type s2 struct {
 		s1 s1
@@ -689,7 +689,7 @@ func addStructDumpTests() {
 	addDumpTest(pv2, "(*"+v2t+")("+v2Addr+")("+v2s+")\n")
 	addDumpTest(&pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s+")\n")
 	addDumpTest(nv2, "(*"+v2t+")(<nil>)\n")
-
+	
 	// Struct that contains custom type with Stringer pointer interface via both
 	// exported and unexported fields.
 	type s3 struct {
@@ -716,7 +716,7 @@ func addStructDumpTests() {
 	addDumpTest(pv3, "(*"+v3t+")("+v3Addr+")("+v3sp+")\n")
 	addDumpTest(&pv3, "(**"+v3t+")("+pv3Addr+"->"+v3Addr+")("+v3sp+")\n")
 	addDumpTest(nv3, "(*"+v3t+")(<nil>)\n")
-
+	
 	// Struct that contains embedded struct and field to same struct.
 	e := embed{"embedstr"}
 	eLen := fmt.Sprintf("%d", len("embedstr"))
@@ -750,7 +750,7 @@ func addUintptrDumpTests() {
 	addDumpTest(v, "("+vt+") "+vs+"\n")
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
-
+	
 	// Address of real variable.
 	i := 1
 	v2 := uintptr(unsafe.Pointer(&i))
@@ -779,7 +779,7 @@ func addUnsafePointerDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Address of real variable.
 	i := 1
 	v2 := unsafe.Pointer(&i)
@@ -807,7 +807,7 @@ func addChanDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Real channel.
 	v2 := make(chan int)
 	pv2 := &v2
@@ -833,7 +833,7 @@ func addFuncDumpTests() {
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs+")\n")
 	addDumpTest(nv, "(*"+vt+")(<nil>)\n")
-
+	
 	// Function with param and no returns.
 	v2 := TestDump
 	nv2 := (*func(*testing.T))(nil)
@@ -846,7 +846,7 @@ func addFuncDumpTests() {
 	addDumpTest(pv2, "(*"+v2t+")("+v2Addr+")("+v2s+")\n")
 	addDumpTest(&pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s+")\n")
 	addDumpTest(nv2, "(*"+v2t+")(<nil>)\n")
-
+	
 	// Function with multiple params and multiple returns.
 	var v3 = func(i int, s string) (b bool, err error) {
 		return true, nil
@@ -880,7 +880,7 @@ func addCircularDumpTests() {
 	addDumpTest(v, "("+vt+") "+vs+"\n")
 	addDumpTest(pv, "(*"+vt+")("+vAddr+")("+vs2+")\n")
 	addDumpTest(&pv, "(**"+vt+")("+pvAddr+"->"+vAddr+")("+vs2+")\n")
-
+	
 	// Structs that are circular through cross referencing.
 	v2 := xref1{nil}
 	ts2 := xref2{&v2}
@@ -899,7 +899,7 @@ func addCircularDumpTests() {
 	addDumpTest(v2, "("+v2t+") "+v2s+"\n")
 	addDumpTest(pv2, "(*"+v2t+")("+v2Addr+")("+v2s2+")\n")
 	addDumpTest(&pv2, "(**"+v2t+")("+pv2Addr+"->"+v2Addr+")("+v2s2+")\n")
-
+	
 	// Structs that are indirectly circular.
 	v3 := indirCir1{nil}
 	tic2 := indirCir2{nil}
@@ -978,7 +978,7 @@ func TestDump(t *testing.T) {
 	addPanicDumpTests()
 	addErrorDumpTests()
 	addCgoDumpTests()
-
+	
 	t.Logf("Running %d tests", len(dumpTests))
 	for i, test := range dumpTests {
 		buf := new(bytes.Buffer)
@@ -1001,7 +1001,7 @@ func TestDumpSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sdump(map[stringer]int{"1": 1, "3": 3, "2": 2})
 	expected = "(map[spew_test.stringer]int) (len=3) {\n" +
 		"(spew_test.stringer) (len=1) stringer 1: (int) 1,\n" +
@@ -1011,7 +1011,7 @@ func TestDumpSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sdump(map[pstringer]int{pstringer("1"): 1, pstringer("3"): 3, pstringer("2"): 2})
 	expected = "(map[spew_test.pstringer]int) (len=3) {\n" +
 		"(spew_test.pstringer) (len=1) stringer 1: (int) 1,\n" +
@@ -1028,7 +1028,7 @@ func TestDumpSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch:\n  %v %v", s, expected)
 	}
-
+	
 	s = cfg.Sdump(map[customError]int{customError(1): 1, customError(3): 3, customError(2): 2})
 	expected = "(map[spew_test.customError]int) (len=3) {\n" +
 		"(spew_test.customError) error: 1: (int) 1,\n" +
@@ -1038,5 +1038,5 @@ func TestDumpSortedKeys(t *testing.T) {
 	if s != expected {
 		t.Errorf("Sorted keys mismatch:\n  %v %v", s, expected)
 	}
-
+	
 }

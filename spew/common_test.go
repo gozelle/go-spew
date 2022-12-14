@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"reflect"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
+	
+	"github.com/gozelle/go-spew/spew"
 )
 
 // custom type to test Stinger interface on non-pointer receiver.
@@ -139,7 +139,7 @@ func helpTestSortValues(tests []sortTestCase, cs *spew.ConfigState, t *testing.T
 		}
 		return interfaces
 	}
-
+	
 	for _, test := range tests {
 		spew.SortValues(test.input, cs)
 		// reflect.DeepEqual cannot really make sense of reflect.Value,
@@ -158,7 +158,7 @@ func helpTestSortValues(tests []sortTestCase, cs *spew.ConfigState, t *testing.T
 // works as intended.
 func TestSortValues(t *testing.T) {
 	v := reflect.ValueOf
-
+	
 	a := v("a")
 	b := v("b")
 	c := v("c")
@@ -232,7 +232,7 @@ func TestSortValues(t *testing.T) {
 // based sorting works as intended when using string methods.
 func TestSortValuesWithMethods(t *testing.T) {
 	v := reflect.ValueOf
-
+	
 	a := v("a")
 	b := v("b")
 	c := v("c")
@@ -267,7 +267,7 @@ func TestSortValuesWithMethods(t *testing.T) {
 // based sorting works as intended when using spew to stringify keys.
 func TestSortValuesWithSpew(t *testing.T) {
 	v := reflect.ValueOf
-
+	
 	a := v("a")
 	b := v("b")
 	c := v("c")

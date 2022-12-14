@@ -18,20 +18,20 @@ post about it
 
 ## Documentation
 
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/davecgh/go-spew/spew)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/gozelle/go-spew/spew)
 
 Full `go doc` style documentation for the project can be viewed online without
 installing this package by using the excellent GoDoc site here:
-http://godoc.org/github.com/davecgh/go-spew/spew
+http://godoc.org/github.com/gozelle/go-spew/spew
 
 You can also view the documentation locally once the package is installed with
 the `godoc` tool by running `godoc -http=":6060"` and pointing your browser to
-http://localhost:6060/pkg/github.com/davecgh/go-spew/spew
+http://localhost:6060/pkg/github.com/gozelle/go-spew/spew
 
 ## Installation
 
 ```bash
-$ go get -u github.com/davecgh/go-spew/spew
+$ go get -u github.com/gozelle/go-spew/spew
 ```
 
 ## Quick Start
@@ -39,7 +39,7 @@ $ go get -u github.com/davecgh/go-spew/spew
 Add this import line to the file you're working in:
 
 ```Go
-import "github.com/davecgh/go-spew/spew"
+import "github.com/gozelle/go-spew/spew"
 ```
 
 To dump a variable with full newlines, indentation, type, and pointer
@@ -75,7 +75,7 @@ import (
     "html"
     "net/http"
 
-    "github.com/davecgh/go-spew/spew"
+    "github.com/gozelle/go-spew/spew"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
