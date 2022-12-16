@@ -46,15 +46,15 @@ type formatState struct {
 // function won't ever be called.
 func (f *formatState) buildDefaultFormat() (format string) {
 	buf := bytes.NewBuffer(percentBytes)
-
+	
 	for _, flag := range supportedFlags {
 		if f.fs.Flag(int(flag)) {
 			buf.WriteRune(flag)
 		}
 	}
-
+	
 	buf.WriteRune('v')
-
+	
 	format = buf.String()
 	return format
 }
@@ -64,24 +64,24 @@ func (f *formatState) buildDefaultFormat() (format string) {
 // automatic deferral of all format strings this package doesn't support.
 func (f *formatState) constructOrigFormat(verb rune) (format string) {
 	buf := bytes.NewBuffer(percentBytes)
-
+	
 	for _, flag := range supportedFlags {
 		if f.fs.Flag(int(flag)) {
 			buf.WriteRune(flag)
 		}
 	}
-
+	
 	if width, ok := f.fs.Width(); ok {
 		buf.WriteString(strconv.Itoa(width))
 	}
-
+	
 	if precision, ok := f.fs.Precision(); ok {
 		buf.Write(precisionBytes)
 		buf.WriteString(strconv.Itoa(precision))
 	}
-
+	
 	buf.WriteRune(verb)
-
+	
 	format = buf.String()
 	return format
 }
@@ -109,7 +109,7 @@ func (f *formatState) formatPtr(v reflect.Value) {
 		f.fs.Write(nilAngleBytes)
 		return
 	}
-
+	
 	// Remove pointers at or below the current depth from map used to detect
 	// circular refs.
 	for k, depth := range f.pointers {
@@ -117,10 +117,10 @@ func (f *formatState) formatPtr(v reflect.Value) {
 			delete(f.pointers, k)
 		}
 	}
-
+	
 	// Keep list of all dereferenced pointers to possibly show later.
 	pointerChain := make([]uintptr, 0)
-
+	
 	// Figure out how many levels of indirection there are by derferencing
 	// pointers and unpacking interfaces down the chain while detecting circular
 	// references.
@@ -142,7 +142,7 @@ func (f *formatState) formatPtr(v reflect.Value) {
 			break
 		}
 		f.pointers[addr] = f.depth
-
+		
 		ve = ve.Elem()
 		if ve.Kind() == reflect.Interface {
 			if ve.IsNil() {
@@ -152,7 +152,7 @@ func (f *formatState) formatPtr(v reflect.Value) {
 			ve = ve.Elem()
 		}
 	}
-
+	
 	// Display type or indirection level depending on flags.
 	if showTypes && !f.ignoreNextType {
 		f.fs.Write(openParenBytes)
@@ -167,7 +167,7 @@ func (f *formatState) formatPtr(v reflect.Value) {
 		f.fs.Write([]byte(strings.Repeat("*", indirects)))
 		f.fs.Write(closeAngleBytes)
 	}
-
+	
 	// Display pointer information depending on flags.
 	if f.fs.Flag('+') && (len(pointerChain) > 0) {
 		f.fs.Write(openParenBytes)
@@ -179,15 +179,15 @@ func (f *formatState) formatPtr(v reflect.Value) {
 		}
 		f.fs.Write(closeParenBytes)
 	}
-
+	
 	// Display dereferenced value.
 	switch {
 	case nilFound:
 		f.fs.Write(nilAngleBytes)
-
+	
 	case cycleFound:
 		f.fs.Write(circularShortBytes)
-
+	
 	default:
 		f.ignoreNextType = true
 		f.format(ve)
@@ -205,13 +205,13 @@ func (f *formatState) format(v reflect.Value) {
 		f.fs.Write(invalidAngleBytes)
 		return
 	}
-
+	
 	// Handle pointers specially.
 	if kind == reflect.Ptr {
 		f.formatPtr(v)
 		return
 	}
-
+	
 	// Print type information unless already handled elsewhere.
 	if !f.ignoreNextType && f.fs.Flag('#') {
 		f.fs.Write(openParenBytes)
@@ -219,7 +219,7 @@ func (f *formatState) format(v reflect.Value) {
 		f.fs.Write(closeParenBytes)
 	}
 	f.ignoreNextType = false
-
+	
 	// Call Stringer/error interfaces if they exist and the handle methods
 	// flag is enabled.
 	if !f.cs.DisableMethods {
@@ -229,40 +229,40 @@ func (f *formatState) format(v reflect.Value) {
 			}
 		}
 	}
-
+	
 	switch kind {
 	case reflect.Invalid:
 		// Do nothing.  We should never get here since invalid has already
 		// been handled above.
-
+	
 	case reflect.Bool:
 		printBool(f.fs, v.Bool())
-
+	
 	case reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Int:
 		printInt(f.fs, v.Int(), 10)
-
+	
 	case reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uint:
 		printUint(f.fs, v.Uint(), 10)
-
+	
 	case reflect.Float32:
 		printFloat(f.fs, v.Float(), 32)
-
+	
 	case reflect.Float64:
 		printFloat(f.fs, v.Float(), 64)
-
+	
 	case reflect.Complex64:
 		printComplex(f.fs, v.Complex(), 32)
-
+	
 	case reflect.Complex128:
 		printComplex(f.fs, v.Complex(), 64)
-
+	
 	case reflect.Slice:
 		if v.IsNil() {
 			f.fs.Write(nilAngleBytes)
 			break
 		}
 		fallthrough
-
+	
 	case reflect.Array:
 		f.fs.Write(openBracketBytes)
 		f.depth++
@@ -280,28 +280,28 @@ func (f *formatState) format(v reflect.Value) {
 		}
 		f.depth--
 		f.fs.Write(closeBracketBytes)
-
+	
 	case reflect.String:
 		f.fs.Write([]byte(v.String()))
-
+	
 	case reflect.Interface:
 		// The only time we should get here is for nil interfaces due to
 		// unpackValue calls.
 		if v.IsNil() {
 			f.fs.Write(nilAngleBytes)
 		}
-
+	
 	case reflect.Ptr:
 		// Do nothing.  We should never get here since pointers have already
 		// been handled above.
-
+	
 	case reflect.Map:
 		// nil maps should be indicated as different than empty maps
 		if v.IsNil() {
 			f.fs.Write(nilAngleBytes)
 			break
 		}
-
+		
 		f.fs.Write(openMapBytes)
 		f.depth++
 		if (f.cs.MaxDepth != 0) && (f.depth > f.cs.MaxDepth) {
@@ -324,7 +324,7 @@ func (f *formatState) format(v reflect.Value) {
 		}
 		f.depth--
 		f.fs.Write(closeMapBytes)
-
+	
 	case reflect.Struct:
 		numFields := v.NumField()
 		f.fs.Write(openBraceBytes)
@@ -347,13 +347,13 @@ func (f *formatState) format(v reflect.Value) {
 		}
 		f.depth--
 		f.fs.Write(closeBraceBytes)
-
+	
 	case reflect.Uintptr:
 		printHexPtr(f.fs, uintptr(v.Uint()))
-
+	
 	case reflect.UnsafePointer, reflect.Chan, reflect.Func:
 		printHexPtr(f.fs, v.Pointer())
-
+	
 	// There were not any other types at the time this code was written, but
 	// fall back to letting the default fmt package handle it if any get added.
 	default:
@@ -370,14 +370,14 @@ func (f *formatState) format(v reflect.Value) {
 // details.
 func (f *formatState) Format(fs fmt.State, verb rune) {
 	f.fs = fs
-
+	
 	// Use standard formatting for verbs that are not v.
 	if verb != 'v' {
 		format := f.constructOrigFormat(verb)
 		fmt.Fprintf(fs, format, f.value)
 		return
 	}
-
+	
 	if f.value == nil {
 		if fs.Flag('#') {
 			fs.Write(interfaceBytes)
@@ -385,7 +385,7 @@ func (f *formatState) Format(fs fmt.State, verb rune) {
 		fs.Write(nilAngleBytes)
 		return
 	}
-
+	
 	f.format(reflect.ValueOf(f.value))
 }
 

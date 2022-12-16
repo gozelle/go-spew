@@ -27,7 +27,7 @@ package spew_test
 import (
 	"fmt"
 	
-	"github.com/gozelle/go-spew/spew/testdata"
+	"github.com/gozelle/spew/testdata"
 )
 
 func addCgoDumpTests() {

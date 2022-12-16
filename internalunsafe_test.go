@@ -16,6 +16,7 @@
 // when the code is not running on Google App Engine, compiled by GopherJS, and
 // "-tags safe" is not added to the go build command line.  The "disableunsafe"
 // tag is deprecated and thus should not be used.
+//go:build !js && !appengine && !safe && !disableunsafe && go1.4
 // +build !js,!appengine,!safe,!disableunsafe,go1.4
 
 /*
@@ -51,7 +52,7 @@ func changeKind(v *reflect.Value, readOnly bool) {
 // the language.
 func TestAddedReflectValue(t *testing.T) {
 	i := 1
-
+	
 	// Dump using a reflect.Value that is exported.
 	v := reflect.ValueOf(int8(5))
 	changeKind(&v, false)
@@ -64,7 +65,7 @@ func TestAddedReflectValue(t *testing.T) {
 		t.Errorf("TestAddedReflectValue #%d\n got: %s want: %s", i, s, want)
 	}
 	i++
-
+	
 	// Dump using a reflect.Value that is not exported.
 	changeKind(&v, true)
 	buf.Reset()
@@ -75,7 +76,7 @@ func TestAddedReflectValue(t *testing.T) {
 		t.Errorf("TestAddedReflectValue #%d\n got: %s want: %s", i, s, want)
 	}
 	i++
-
+	
 	// Formatter using a reflect.Value that is exported.
 	changeKind(&v, false)
 	buf2 := new(dummyFmtState)
@@ -87,7 +88,7 @@ func TestAddedReflectValue(t *testing.T) {
 		t.Errorf("TestAddedReflectValue #%d got: %s want: %s", i, s, want)
 	}
 	i++
-
+	
 	// Formatter using a reflect.Value that is not exported.
 	changeKind(&v, true)
 	buf2.Reset()

@@ -53,7 +53,7 @@ func (dfs *dummyFmtState) Width() (int, bool) {
 // API.
 func TestInvalidReflectValue(t *testing.T) {
 	i := 1
-
+	
 	// Dump invalid reflect value.
 	v := new(reflect.Value)
 	buf := new(bytes.Buffer)
@@ -65,7 +65,7 @@ func TestInvalidReflectValue(t *testing.T) {
 		t.Errorf("InvalidReflectValue #%d\n got: %s want: %s", i, s, want)
 	}
 	i++
-
+	
 	// Formatter invalid reflect value.
 	buf2 := new(dummyFmtState)
 	f := formatState{value: *v, cs: &Config, fs: buf2}
