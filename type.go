@@ -6,7 +6,9 @@ import (
 	"reflect"
 )
 
-func Type(a interface{}) {
+func Type(a ...any) {
 	color.Yellow("%s spew type: \n", runFuncPos())
-	fmt.Println(reflect.TypeOf(a))
+	for _, v := range a {
+		fmt.Println(reflect.TypeOf(v))
+	}
 }
